@@ -1,6 +1,6 @@
 # Lecture3 - KEYPOINT DETECTION AND MATCHING
 
-[**Benchmark Results**](https://moodle.vut.cz/pluginfile.php/405592/mod_resource/content/1/BenchmarkPanorama.xlsx%20-%20List1.pdf)
+[**Benchmark Results**](https://docs.google.com/spreadsheets/d/1WhClG6CkwS-4u3IX1Tk7T7sVZ4AHXH_s/edit?usp=sharing&ouid=112211468254352441667&rtpof=true&sd=true)
 
 ## Preparation
 
@@ -29,4 +29,4 @@ witch has the following inputs and outputs:
   * PIQE - evaluation criterion of image quality (lower values, better result)
   * mError - mean error between your panoramic output image and ground truth image
 5. Calculate above-mentioned evaluation criteria. Save one **TIFF** image showing the best achieved results of panorama and store your implemented algorithm as a form of function `[output_panorama] = TeamName(J, init_panorama)`. The function will be used for evaluation of universality of your solution using another input image. **Push** your program implementations into GitHub repository **Lecture3_23** using the **branch of your team** (stage changed -> fill commit message -> sign off -> commit -> push -> select *NAME_OF_YOUR_TEAM* branch -> push -> manager-core -> web browser -> fill your credentials).
-6. Submit the best-obtained result of your method evaluated on the competition dataset using the evaluation function (i.e. submit the calculated evaluation values) into a shared [Excel table](https://docs.google.com/spreadsheets/d/1fmzAsSK1YGJnBL6uskm5JQJ0MVPwZV8D/edit?usp=sharing&ouid=105272487043795807825&rtpof=true&sd=true). The evaluation of results from each team will be presented at the end of the lecture.
+6. Submit the best-obtained result of your method evaluated on the competition dataset using the evaluation function (i.e. submit the calculated evaluation values) into a shared [Excel table](https://docs.google.com/spreadsheets/d/1WhClG6CkwS-4u3IX1Tk7T7sVZ4AHXH_s/edit?usp=sharing&ouid=112211468254352441667&rtpof=true&sd=true). The evaluation of results from each team will be presented at the end of the lecture.
