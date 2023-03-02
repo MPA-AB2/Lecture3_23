@@ -25,11 +25,11 @@ while indexy
     sum_matchmetric = [];
     indexPairs = {};
     matchmetric = {};
-    points = detectSURFFeatures(img_gray);
+    points = detectFASTFeatures(img_gray);
     [features,validPoints] = extractFeatures(img_gray,points);
     for i = 1:length(indexy)
         temp_img = temp_struct{1,i};
-        points_temp_img = detectSURFFeatures(temp_img);
+        points_temp_img = detectFASTFeatures(temp_img);
         [featurestemp_img,validPointstemp_img] = extractFeatures(temp_img,points_temp_img);
         [indexPairs{1,i},matchmetric{1,i}] = matchFeatures(features,featurestemp_img);
         num_of_pairs(i) = size(indexPairs{1, i},1);
@@ -54,7 +54,7 @@ while indexy
         indexy(ind_min_sum) = [];
         chosen_index = ind_min_sum;
     end
-    points_temp_img = detectSURFFeatures(temp_struct{1,chosen_index});
+    points_temp_img = detectFASTFeatures(temp_struct{1,chosen_index});
     [featurestemp_img,validPointstemp_img] = extractFeatures(temp_struct{1,chosen_index},points_temp_img);
     indexPairs = matchFeatures(features,featurestemp_img);
 
