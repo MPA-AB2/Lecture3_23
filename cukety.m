@@ -24,8 +24,13 @@ while ~isempty(J)
         B = J{i};
         I1 = rgb2gray(I);
         B1 = rgb2gray(B);
-        points1 = detectHarrisFeatures(I1); %finds the corners
-        points2 = detectHarrisFeatures(B1);
+
+ % Haaris features - https://www.mathworks.com/matlabcentral/answers/283233-how-to-combine-two-images-based-off-matched-features
+%         points1 = detectHarrisFeatures(I1); %finds the corners
+%         points2 = detectHarrisFeatures(B1);
+        % SURF Features - Object Detection in a Cluttered Scene Using Point Feature Matching
+        points1 = detectSURFFeatures(I1);
+        points2 = detectSURFFeatures(B1);
         [features1, valid_points1] = extractFeatures(I1,points1);
         [features2 valid_points2] = extractFeatures(B1,points2);
         indexPairs = matchFeatures(features1,features2);
@@ -47,8 +52,12 @@ while ~isempty(J)
     B = J{pos_max};
     I1 = rgb2gray(I);
     B1 = rgb2gray(B);
-    points1 = detectHarrisFeatures(I1); %finds the corners
-    points2 = detectHarrisFeatures(B1);
+    % Haaris features - https://www.mathworks.com/matlabcentral/answers/283233-how-to-combine-two-images-based-off-matched-features
+    %         points1 = detectHarrisFeatures(I1); %finds the corners
+    %         points2 = detectHarrisFeatures(B1);
+    % SURF Features - Object Detection in a Cluttered Scene Using Point Feature Matching
+    points1 = detectSURFFeatures(I1);
+    points2 = detectSURFFeatures(B1);
     [features1, valid_points1] = extractFeatures(I1,points1);
     [features2 valid_points2] = extractFeatures(B1,points2);
     indexPairs = matchFeatures(features1,features2);
