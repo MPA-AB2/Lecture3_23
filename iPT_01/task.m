@@ -1,4 +1,4 @@
-
+%Nejaka chyba v indexaci, sfuzuje spravne jeden obrazek a pak hazi bokem
 
 close all;clear all;clc;
 
@@ -100,8 +100,8 @@ end
 counter=size_J(2)+1;
 poz_predchozi=0;
 poz2_predchozi=0;
-for i_velky=1:size_J(2)+1 %merging
-
+% for i_velky=1:size_J(2)+1 %merging
+for i_velky=1 %merging
     maximum=max(max(max_count(counter,:)));
     [im1,im2]=find(max_count==maximum);
 
@@ -133,9 +133,11 @@ for i_velky=1:size_J(2)+1 %merging
 % 
 %     im_fuse=imfuse(img1_warp,img2_warp,'blend','Scaling','none');
 %     imshow(im_fuse)
+    max_count(counter,:)=0;
     counter=im2
     poz_predchozi=poz
     poz2_predchozi=poz
+    
 end
 
 
