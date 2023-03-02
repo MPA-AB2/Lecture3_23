@@ -123,4 +123,4 @@ end
 
 %% evaluation
 % load image_splitted.mat
-[PIQE, err] = evalPanorama(im)
+% [PIQE, err] = evalPanorama(im)
