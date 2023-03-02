@@ -1,4 +1,4 @@
-function [panorama] = MED(J,mainImg)
+function [panorama] = image_stitch(J,mainImg)
 %MED3FUN Summary of this function goes here
 %   Detailed explanation goes here
     imgsToFit = J;
@@ -6,13 +6,13 @@ function [panorama] = MED(J,mainImg)
     fIndx = 1;
     while (length(imgsToFit)-fIndx+1 ~= 0)
             %feater detection
-        mainFeatures = detectKAZEFeatures(rgb2gray(mainImg));
+        mainFeatures = detectSIFTFeatures(rgb2gray(mainImg),"ContrastThreshold", 0.045);
         toFitFeatures = {};
         for i = 1:(length(imgsToFit))
             if (ismember(i,fitedIndexes))
                 continue
             else
-            toFitFeatures{i} =  detectKAZEFeatures(rgb2gray(imgsToFit{1,i}));
+            toFitFeatures{i} =  detectSIFTFeatures(rgb2gray(imgsToFit{1,i}),"ContrastThreshold", 0.045);
             end
         end
             %fitting best one
@@ -47,9 +47,11 @@ function [panorama] = MED(J,mainImg)
         xdif =  round(mean(mean(matchedPoints1(1,2) - matchedPoints2(1,2))));
         mainImg(xdif:(xdif + size(thisImg,1)-1),ydif:(ydif + size(thisImg,2)-1),:) = thisImg;
     
-        figure
-        imshow(mainImg)
+%         figure
+%         imshow(mainImg)
     end
+      figure
+      imshow(mainImg)
     panorama = mainImg;
 end
 
