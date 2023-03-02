@@ -12,7 +12,7 @@ cycle_idx = 1:1:size(image_splitted.J,2);
 %%
 for k = 1: size(image_splitted.J,2)
     %ulozeni parametru puvodniho obrazu
-    corners_obr = detectHarrisFeatures(obr);
+    corners_obr = detectORBFeatures(obr);
     [features_obr,valid_corners_obr] = extractFeatures(obr,corners_obr);
     
     %vyber nejpodobnejsiho obrazu
@@ -25,7 +25,7 @@ for k = 1: size(image_splitted.J,2)
     for j = cycle_idx(cycle_idx ~= 0)
         im_current = rgb2gray(image_splitted.J{j});
         %harrisova vzdalenost
-        corners_im_current = detectHarrisFeatures(im_current);
+        corners_im_current = detectORBFeatures(im_current);
         [features_im_current,valid_corners_im_current] = extractFeatures(im_current,corners_im_current);
     
         %eukleidovska vzdalenostni matice
