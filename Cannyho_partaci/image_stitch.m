@@ -2,6 +2,7 @@ function [panorama] = image_stitch(J,mainImg)
 
 % images = load(J);
 % img = imread(mainImg);
+img = mainImg;
 img_gray = rgb2gray(mainImg);
 images = J;
 images_gray = {};
