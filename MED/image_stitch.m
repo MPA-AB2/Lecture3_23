@@ -4,7 +4,7 @@ function [panorama] = image_stitch(J,mainImg)
     imgsToFit = J;
     fitedIndexes = zeros(1,length(imgsToFit));
     fIndx = 1;
-    t = 0.45;
+    t = 0.045;
     while (length(imgsToFit)-fIndx+1 ~= 0)
             %feater detection
         mainFeatures = detectSIFTFeatures(rgb2gray(mainImg),"ContrastThreshold",t);
