@@ -1,4 +1,4 @@
-function [im] = cukety(J, init_panorama)
+function [im] = image_stitch(J, init_panorama)
 
 
 im = imread(init_panorama);
