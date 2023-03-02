@@ -5,6 +5,7 @@ for i = 1:length(J)
     J{i} = rgb2gray(J{i});
 end
 %%
+iter = 0;
 while ~isempty(J)
     % cropping the panorama
     initPanoramaGray = rgb2gray(initPanorama);
@@ -18,7 +19,7 @@ while ~isempty(J)
     MaxCorr = [];
     [nr,nc] = size(croppedPanorama);
     croop_size_x = floor(nr/5);
-    croop_size_y = floor(nr/5);
+    croop_size_y = floor(nc/5);
     % find image patches at current panorama border
     if sum(croppedPanorama==0,'all')>0
         im = cell(15,1);
@@ -132,6 +133,8 @@ while ~isempty(J)
     initPanorama = max(initPanorama, warpedPanorama); % overlay image1 over image2
 
     % remove fused image
+    iter = iter + 1;
+    disp(['Pripojen ',num2str(iter),'. obraz'])
     J(FinalIdx) = [];
     Jorig(FinalIdx) = [];
 end
