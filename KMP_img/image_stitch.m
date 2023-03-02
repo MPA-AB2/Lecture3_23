@@ -1,4 +1,4 @@
-function [output_panorama] = image_stitch(color_im,image_splitted)
+function [output_panorama] = image_stitch(image_splitted,color_im)
 %nacteni obrazu
 %color_im = imread('Lecture3_data/panorama.png');
 %image_splitted = load('Lecture3_data/image_splitted.mat');
