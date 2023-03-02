@@ -120,6 +120,7 @@ while ~isempty(J)
 %     figure;imshow(im)
 
 end
+end
 
 %% evaluation
 % load image_splitted.mat
