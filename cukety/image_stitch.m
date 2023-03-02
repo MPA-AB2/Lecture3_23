@@ -122,6 +122,3 @@ while ~isempty(J)
 end
 end
 
-%% evaluation
-% load image_splitted.mat
-% [PIQE, err] = evalPanorama(im)
