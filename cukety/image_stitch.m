@@ -1,7 +1,7 @@
-function [im] = image_stitch(J, init_panorama)
+function [im] = image_stitch(J, im)
 
 
-im = imread(init_panorama);
+% im = imread(init_panorama);
 % load image_splitted.mat
 
 % figure;
@@ -12,7 +12,16 @@ im = imread(init_panorama);
 %
 % figure
 % imshow(im)
-%%
+%% parameters
+% detect features
+th1 = 1000; %MetricThreshold — Strongest feature threshold
+th2 = 1000;
+no1 = 4;
+no2 = 4;
+% extract features
+met1 = "SURF";
+met2 = "SURF";
+
 while ~isempty(J)
 
     %% Haaris features
@@ -29,10 +38,10 @@ while ~isempty(J)
 %         points1 = detectHarrisFeatures(I1); %finds the corners
 %         points2 = detectHarrisFeatures(B1);
         % SURF Features - Object Detection in a Cluttered Scene Using Point Feature Matching
-        points1 = detectSURFFeatures(I1);
-        points2 = detectSURFFeatures(B1);
-        [features1, valid_points1] = extractFeatures(I1,points1);
-        [features2 valid_points2] = extractFeatures(B1,points2);
+        points1 = detectSURFFeatures(I1, "MetricThreshold", th1, "NumOctaves", no1);
+        points2 = detectSURFFeatures(B1, "MetricThreshold", th2, "NumOctaves", no2);
+        [features1, valid_points1] = extractFeatures(I1,points1,"Method",met1);
+        [features2 valid_points2] = extractFeatures(B1,points2, "Method", met2);
         indexPairs = matchFeatures(features1,features2);
         matchedPoints1 = valid_points1(indexPairs(:,1),:);
         matchedPoints2 = valid_points2(indexPairs(:,2),:);
@@ -56,10 +65,10 @@ while ~isempty(J)
     %         points1 = detectHarrisFeatures(I1); %finds the corners
     %         points2 = detectHarrisFeatures(B1);
     % SURF Features - Object Detection in a Cluttered Scene Using Point Feature Matching
-    points1 = detectSURFFeatures(I1);
-    points2 = detectSURFFeatures(B1);
-    [features1, valid_points1] = extractFeatures(I1,points1);
-    [features2 valid_points2] = extractFeatures(B1,points2);
+    points1 = detectSURFFeatures(I1, "MetricThreshold", th1, "NumOctaves", no1);
+    points2 = detectSURFFeatures(B1, "MetricThreshold", th2, "NumOctaves", no2);
+    [features1, valid_points1] = extractFeatures(I1,points1,"Method",met1);
+    [features2 valid_points2] = extractFeatures(B1,points2,"Method",met2);
     indexPairs = matchFeatures(features1,features2);
     matchedPoints1 = valid_points1(indexPairs(:,1),:);
     matchedPoints2 = valid_points2(indexPairs(:,2),:);
@@ -114,4 +123,4 @@ end
 
 %% evaluation
 % load image_splitted.mat
-[PIQE, errorbar] = evalPanorama(im)
+[PIQE, err] = evalPanorama(im)
