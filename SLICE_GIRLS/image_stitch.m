@@ -7,7 +7,8 @@ validPoints = cell(1,9);
 % Detect features
 for i = 1:length(J)
     im = im2double(rgb2gray(J{i}));
-    points = detectKAZEFeatures(im, 'Diffusion', 'sharpedge', 'Threshold', 0.001);
+%     points = detectKAZEFeatures(im, 'Diffusion', 'edge', 'Threshold', 0.0001);
+    points = detectORBFeatures(im);
     [features{1,i}, validPoints{1,i}] = extractFeatures(im, points);
 end
 
@@ -43,6 +44,10 @@ for i = 1:8
     x = round(median(matchedPoints1.Location(:,1) - matchedPoints2.Location(:,1)));
     y = round(median(matchedPoints1.Location(:,2) - matchedPoints2.Location(:,2)));
     
+%     figure(2); 
+%     showMatchedFeatures(J{1},J{bestIdx},matchedPoints1,matchedPoints2);
+%     pause;
+    
     % Stich images
     J{1}(y:y+size(J{bestIdx},1)-1,x:x+size(J{bestIdx},2)-1,:) = J{bestIdx};
     
@@ -54,7 +59,8 @@ for i = 1:8
     
     % Recalculate features
     im = im2double(rgb2gray(J{1}));
-    points = detectKAZEFeatures(im, 'Diffusion', 'sharpedge', 'Threshold', 0.001);
+%     points = detectKAZEFeatures(im, 'Diffusion', 'edge', 'Threshold', 0.0001);
+    points = detectORBFeatures(im);
     [features{1,1}, validPoints{1,1}] = extractFeatures(im, points);
     
 end
