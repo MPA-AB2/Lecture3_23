@@ -54,7 +54,7 @@ function [panorama] = image_stitch(J,mainImg)
         matchedPoints2 = [toFitFeatures{1,maxIndx}.Location(myPosToFit,1),toFitFeatures{1,maxIndx}.Location(myPosToFit,2)];
         ydif =  round(mean(mean(matchedPoints1(1,1) - matchedPoints2(1,1))));
         xdif =  round(mean(mean(matchedPoints1(1,2) - matchedPoints2(1,2))));
-        mainImg(xdif:(xdif + size(thisImg,1)-1),ydif:(ydif + size(thisImg,2)-1),:) = thisImg;
+        mainImg(xdif+1:(xdif + size(thisImg,1)),ydif+1:(ydif + size(thisImg,2)),:) = thisImg;
     
 %         figure
 %         imshow(mainImg)
