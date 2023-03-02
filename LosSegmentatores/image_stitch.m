@@ -21,24 +21,25 @@ while ~isempty(J)
     croop_size_x = floor(nr/5);
     croop_size_y = floor(nc/5);
     % find image patches at current panorama border
-    if sum(croppedPanorama==0,'all')>0
+    if sum(croppedPanorama==0,'all') > 0
         im = cell(15,1);
         edges = edge(croppedPanorama==0,"canny");
         edgePoints = find(edges);
         [edgePointsRow,edgePointsCol] = ind2sub(size(croppedPanorama),edgePoints);
-        for i = 1:10
-            ind = randi([1,length(edgePoints)],1,1);
-            while edgePointsRow(ind)>(nr-croop_size_x) || edgePointsCol(ind)>(nc-croop_size_y)
-                ind = randi([1,length(edgePoints)],1,1);
-            end
-            im{i} = croppedPanorama(edgePointsRow(ind):(edgePointsRow(ind)+croop_size_x),edgePointsCol(ind):(edgePointsCol(ind)+croop_size_y));
-
-            for j = 1:length(J)
-                SumCorr(i,j) = sum(xcorr2(J{j},im{i}),'all');
-                MaxCorr(i,j) = max(xcorr2(J{j},im{i}),[],'all');
+        edgePointsCol(edgePointsRow>(nr-croop_size_x)) = [];
+        edgePointsRow(edgePointsRow>(nr-croop_size_x)) = [];
+        edgePointsRow(edgePointsCol>(nc-croop_size_y)) = [];
+        edgePointsCol(edgePointsCol>(nc-croop_size_y)) = [];
+        if ~isempty(edgePointsCol)
+            for i = 1:10
+                ind = randi([1,length(edgePointsRow)],1,1);
+                im{i} = croppedPanorama(edgePointsRow(ind):(edgePointsRow(ind)+croop_size_x),edgePointsCol(ind):(edgePointsCol(ind)+croop_size_y));
+                for j = 1:length(J)
+                    SumCorr(i,j) = sum(xcorr2(J{j},im{i}),'all');
+                    MaxCorr(i,j) = max(xcorr2(J{j},im{i}),[],'all');
+                end
             end
         end
-
     end
     % find other random image patches
     for i = 1:5
@@ -105,7 +106,7 @@ while ~isempty(J)
     if length(indexPairs) < 3 && length(J) > 1
         % Select images
         [FinalIdx,~]=intersect(IdxMax2,IdxSum2);
-        FinalIdx = FinalIdx(2);
+        FinalIdx = FinalIdx(2); 
         imageToFuse = Jorig{FinalIdx};
         imageToFuseGray = J{FinalIdx};
         
