@@ -4,7 +4,7 @@ Jorig = J;
 for i = 1:length(J)
     J{i} = rgb2gray(J{i});
 end
-%%
+
 iter = 0;
 while ~isempty(J)
     % cropping the panorama
@@ -77,6 +77,10 @@ while ~isempty(J)
         [~,IdxMax2] = maxk(MaxCorr,2);
         [~,IdxSum2] = maxk(SumCorr,2);
         [FinalIdx,~]=intersect(IdxMax2,IdxSum2);
+        if isempty(FinalIdx)
+            Idxs = [IdxMax2,IdxSum2];
+            FinalIdx = Idxs(randi([1,4],1,1));
+        end
         if length(FinalIdx) > 1
             FinalIdx = FinalIdx(1);
         end
