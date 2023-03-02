@@ -1,4 +1,4 @@
-function [output_panorama] = cukety(J, init_panorama)
+function [im] = cukety(J, init_panorama)
 
 
 im = imread(init_panorama);
@@ -17,7 +17,7 @@ while ~isempty(J)
 
     %% Haaris features
     % https://www.mathworks.com/matlabcentral/answers/283233-how-to-combine-two-images-based-off-matched-features
-    num_of_matchedpoints = zeros(1, size(J, 2))
+    num_of_matchedpoints = zeros(1, size(J, 2));
 
     for i = 1:size(J, 2)
         I = im; %assign the first image to variable I;
@@ -44,7 +44,7 @@ while ~isempty(J)
     end
     %% choose image
 
-    [~, pos_max] = max(num_of_matchedpoints)
+    [~, pos_max] = max(num_of_matchedpoints);
 
     %% again matched points
 
@@ -63,7 +63,7 @@ while ~isempty(J)
     indexPairs = matchFeatures(features1,features2);
     matchedPoints1 = valid_points1(indexPairs(:,1),:);
     matchedPoints2 = valid_points2(indexPairs(:,2),:);
-    figure; showMatchedFeatures(I1,B1,matchedPoints1,matchedPoints2);
+%     figure; showMatchedFeatures(I1,B1,matchedPoints1,matchedPoints2);
     blender = vision.AlphaBlender('Operation', 'Binary mask', ...
         'MaskSource', 'Input port');
 
@@ -87,7 +87,7 @@ while ~isempty(J)
     %     figure;imshow(im33)
 
     registered = im33;
-    J(pos_max) = []
+    J(pos_max) = [];
 
     %     if ~isempty(matchedPoints2)
     %         t = fitgeotform2d(matchedPoints2.Location,matchedPoints1.Location,"similarity");
@@ -108,7 +108,7 @@ while ~isempty(J)
         end
     end
 
-    figure;imshow(im)
+%     figure;imshow(im)
 
 end
 
