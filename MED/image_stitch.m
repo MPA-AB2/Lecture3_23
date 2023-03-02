@@ -4,18 +4,19 @@ function [panorama] = image_stitch(J,mainImg)
     imgsToFit = J;
     fitedIndexes = zeros(1,length(imgsToFit));
     fIndx = 1;
-    t = 0.0045;
+    t = 0.45;
     while (length(imgsToFit)-fIndx+1 ~= 0)
             %feater detection
-        mainFeatures = detectSIFTFeatures(rgb2gray(mainImg));
+        mainFeatures = detectSIFTFeatures(rgb2gray(mainImg),"ContrastThreshold",t);
         toFitFeatures = {};
         for i = 1:(length(imgsToFit))
             if (ismember(i,fitedIndexes))
                 continue
             else
-            toFitFeatures{i} =  detectSIFTFeatures(rgb2gray(imgsToFit{1,i}));
+            toFitFeatures{i} =  detectSIFTFeatures(rgb2gray(imgsToFit{1,i}),"ContrastThreshold",t);
             end
         end
+        
             %fitting best one
         myMax = 0;
         maxIndx = -1;
@@ -33,8 +34,15 @@ function [panorama] = image_stitch(J,mainImg)
                 %matches(i) = length(val);
            end
         end
+
         if maxIndx == -1
-            return;
+            t = t*0.5;
+            continue;
+        end
+
+        if (length(myVals) < 10)
+            t = t*0.5;
+            continue;
         end
         %index handle
         fitedIndexes(fIndx) = maxIndx;
